@@ -1,8 +1,11 @@
 # GSI-Bench: Exploring Spatial Intelligence from a Generative Perspective
 
+**🎉 Accepted to CVPR 2026**
+
 Official implementation of the paper:
 
 > **Exploring Spatial Intelligence from a Generative Perspective**
+> _CVPR 2026_
 > [[Paper]](paper/main.pdf)
 
 GSI-Bench evaluates the ability of generative models to understand and manipulate 3D spatial relationships in indoor scenes.
@@ -244,9 +247,10 @@ python -m pytest tests/ -v    # 43 tests should pass
 ## Citation
 
 ```bibtex
-@article{gsibench2025,
+@inproceedings{gsibench2026,
   title={Exploring Spatial Intelligence from a Generative Perspective},
-  year={2025}
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2026}
 }
 ```
 
