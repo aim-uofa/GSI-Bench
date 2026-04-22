@@ -1,0 +1,33 @@
+# Core runtime (install torch/torchvision/xformers to match your CUDA build)
+torch
+torchvision
+xformers
+
+# DetAny3D / SAM stack
+mmcv>=2.0.0
+mmengine>=0.10.0
+timm>=1.0.0
+einops>=0.6.0
+
+# General
+numpy
+opencv-python
+Pillow
+PyYAML
+python-box
+shapely
+scikit-image
+lpips
+tqdm
+matplotlib
+debugpy
+six
+termcolor
+h5py
+scipy
+
+# Optional (only needed for some tools/datasets)
+pycocotools
+open3d
+ipdb
+# groundingdino @ git+https://github.com/IDEA-Research/GroundingDINO.git@856dde20aee659246248e20734ef9ba5214f5e44

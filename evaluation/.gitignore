@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+*.egg-info/
+build/
+dist/
+
+# Virtual envs
+.venv/
+venv/
+env/
+.conda/
+
+# Jupyter / IDE
+.ipynb_checkpoints/
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Large data / outputs (project-specific)
+checkpoints/
+fine_dataset/
+mesatask_dataset/
+bathroom_dataset/
+robothor_dataset/
+GSI-Bench/
+GSI-weight/
+generated_images_*/
+*_eval/
+eval/**/infer_cache.json
+eval/**/_progress.json
+eval/**_eval_results.json
+eval/**_eval_stats.json
+
+# External clones / build outputs
+GroundingDINO/
+# src/
+EVAL

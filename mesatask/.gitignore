@@ -1,0 +1,5 @@
+# Ignore visualization data folders
+vis_*/
+transformed_*/
+output*
+dataset

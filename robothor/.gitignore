@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+.DS_Store
+
+# Data and outputs
+data/outputs/
+data/pregenerated_views/
+*.log

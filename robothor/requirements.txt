@@ -1,0 +1,4 @@
+ai2thor>=5.0.0
+numpy
+pillow
+matplotlib

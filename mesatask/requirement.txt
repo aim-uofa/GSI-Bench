@@ -1,0 +1,25 @@
+roma
+trimesh
+# drake — Do NOT install via pip (wrong package). Use conda:
+#   conda install -c conda-forge drake
+open_clip-torch
+sentence-transformers
+matplotlib
+numpy
+pyyaml
+compress_pickle
+accelerate
+tqdm
+transformers
+openai
+Pillow
+
+# Optional: for inference (install separately)
+# torch, torchvision, torchaudio (see README)
+# pytorch3d (see README)
+
+# Optional: for physical optimization (conda only)
+# drake: conda install -c conda-forge drake
+
+# Optional: for rendering
+# Blender 4.3+: download from https://www.blender.org/download/

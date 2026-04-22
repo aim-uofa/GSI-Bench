@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+*.so
+.Python
+
+# Model weights
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+robothor/checkpoints/
+evaluation/checkpoints/
+evaluation/GSI-weight/
+evaluation/GroundingDINO/weights/
+
+# Large generated data
+robothor/data/outputs/
+mesatask/MesaTask-10K/Assets_library/
+mesatask/transformed_layouts*/
+mesatask/vis_dataset/
+mesatask/dataset/blender-*/
+mesatask/dataset/image_editing_dataset*/
+mesatask/dataset/output/
+mesatask/dataset/vis_*/
+
+# Dataset symlinks / local data (provide your own, see README)
+evaluation/bathroom_dataset/
+evaluation/fine_dataset/
+evaluation/mesatask_dataset/
+evaluation/robothor_dataset/
+evaluation/GSI-Bench/
+evaluation/EVAL/
+
+# BAGEL example artifacts (regenerate locally)
+evaluation/bagel_example/
+
+# IDE / OS
+.DS_Store
+.vscode/
+.idea/
+*.log
+.pytest_cache/
+.ipynb_checkpoints/

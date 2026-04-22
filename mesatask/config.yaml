@@ -1,0 +1,36 @@
+# MesaTask Configuration File
+
+# Data Paths  
+annotations_path: "./MesaTask-10K/Asset_annotation.json"
+sbert_features_path: "./MesaTask-10K/sbert_text_features.pkl"
+
+# Tools
+model_base_path: "./MesaTask-10K/Assets_library"
+blender_executable: "./blender-4.3.2-linux-x64/blender"
+
+# Scene Assets
+table_model_path: "./MesaTask-10K/Assets_library/3cc47c3f78d34985bf4314de2f8196dd.glb"
+sink_model_path: "./MesaTask-10K/Assets_library/sink_cube.glb"
+
+# Processing Parameters
+retrieval_threshold: 0.2
+top_k_text: 20
+top_k_final: 5
+text_weight: 0.9
+size_weight: 0.1
+
+# Drake Configuration
+drake:
+  glb_dir: "./MesaTask-10K/Assets_library"
+  original_urdf: "tools/layoutopt/test.urdf"
+  model_package_path: "./MesaTask-10K/Assets_library_obj"
+  window_size: 6
+  max_rounds: 3
+  min_distance: 0.01
+  convergence_threshold: 0
+  output_suffix: "_optimized"
+  optimization:
+    influence_distance: 0.2
+    solver_name: "ipopt"
+    iteration_limit: 50000
+    tol: 1e-6
