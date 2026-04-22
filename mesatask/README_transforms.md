@@ -1,5 +1,7 @@
 # 场景物体变换生成器
 
+Language: 中文 | English in [`README_transforms.en.md`](README_transforms.en.md)
+
 自动批量生成3D场景中物体的原子变换（移动、旋转、缩放），并生成中英文双语指令。
 
 ## 功能特性

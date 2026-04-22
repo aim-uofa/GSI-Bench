@@ -1,5 +1,7 @@
 # BAGEL 结果复现说明
 
+Language: 中文 | English in [`REPRODUCE_BAGEL_RESULTS.en.md`](REPRODUCE_BAGEL_RESULTS.en.md)
+
 本文档说明如何使用仓库中提供的 `bagel_example/` 数据复现 BAGEL 模型在 fine 数据集上的完整评测结果。
 
 > **结论：**

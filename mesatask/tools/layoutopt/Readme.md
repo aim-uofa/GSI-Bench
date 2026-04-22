@@ -1,5 +1,7 @@
 # Drake Scene Optimizer
 
+Language: English | 中文见 [`Readme.zh.md`](Readme.zh.md)
+
 This is a Python script built on the [Drake](https://drake.mit.edu/) physics engine and project [Steerable Scene Generation](https://github.com/nepfaff/steerable-scene-generation) for optimizing 3D scenes. The primary function of this script is to read a scene file describing the positions and sizes of multiple objects, and automatically adjust their positions to eliminate physical penetrations (collisions) while respecting predefined motion constraints.
 
 

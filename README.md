@@ -1,5 +1,7 @@
 # GSI-Bench: Exploring Spatial Intelligence from a Generative Perspective
 
+Language: English | 中文见 [`README_zh.md`](README_zh.md)
+
 **🎉 Accepted to CVPR 2026**
 
 Official implementation of the paper:

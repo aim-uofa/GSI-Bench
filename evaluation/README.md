@@ -1,6 +1,8 @@
 
 # Generative-Spatial-Intelligence
 
+Language: English | 中文见 [`README_zh.md`](README_zh.md)
+
 This project provides a pipeline for generative spatial intelligence, focusing on 3D object detection, scene editing, and evaluation in indoor environments. It supports moving, rotating, and removing objects, and automatically generates editing tasks and evaluation results.
 
 ## Project Structure

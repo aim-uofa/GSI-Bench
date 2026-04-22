@@ -1,5 +1,7 @@
 # Eval 使用说明
 
+Language: 中文 | English in [`README.en.md`](README.en.md)
+
 本说明针对 `eval.sh` 和 `python -m eval.eval` 的评估流程，包含输入格式、命名规范、权重与环境依赖等要点。
 
 ## 入口
