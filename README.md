@@ -1,4 +1,4 @@
-# GSI-Bench: Generative Spatial Intelligence Benchmark
+# GSI-Bench: Exploring Spatial Intelligence from a Generative Perspective
 
 Official implementation of the paper:
 
