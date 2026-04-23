@@ -135,7 +135,7 @@ pip install -e git+https://github.com/IDEA-Research/GroundingDINO.git@856dde20ae
 - IC（指令遵循）
 - SA（空间精度）
 - EL（编辑局部性）
-- AC（基于 MLLM 的接受一致性）
+- AC（基于 MLLM 的外观一致性）
 
 按下列步骤组织输出、运行指标脚本、聚合结果。
 

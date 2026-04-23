@@ -312,7 +312,7 @@ Average:  28.484
 
 ## 9. AC 打分复现（可选）
 
-AC（Acceptance Consistency）通过 MLLM（如 Qwen3-VL）对原图与编辑图进行打分。完整流程分三步：
+AC（Appearance Consistency）通过 MLLM（如 Qwen3-VL）对原图与编辑图进行打分。完整流程分三步：
 
 ### 9.1 构建 LMDB 数据集
 

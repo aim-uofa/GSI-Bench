@@ -14,10 +14,10 @@ GSI-Bench evaluates the ability of generative models to understand and manipulat
 
 | Metric | Full Name | What It Measures |
 |--------|-----------|------------------|
-| **IC** | Instruction Compliance | Whether the edit follows the instruction |
-| **SA** | Spatial Accuracy | Spatial precision of the edit |
-| **EL** | Edit Locality | Whether unedited regions remain intact |
-| **AC** | Acceptance Consistency | MLLM-based holistic quality score |
+| **IC** | Instruction Compliance | Does the output actually perform the requested spatial operation? |
+| **SA** | Spatial Accuracy | Is the 3D displacement, rotation, or scale close to the ground-truth geometry? |
+| **AC** | Appearance Consistency | Are object identity, category, and appearance preserved after editing? |
+| **EL** | Edit Locality | Is the rest of the scene left untouched outside the intended region? |
 
 ---
 

@@ -14,10 +14,10 @@ GSI-Bench 用于评估生成式模型在室内场景中理解与操纵 3D 空间
 
 | 指标 | 全称 | 衡量内容 |
 |------|------|---------|
-| **IC** | Instruction Compliance（指令遵循） | 编辑是否符合指令 |
-| **SA** | Spatial Accuracy（空间精度） | 编辑的空间精度 |
-| **EL** | Edit Locality（编辑局部性） | 未编辑区域是否保持不变 |
-| **AC** | Acceptance Consistency（接受一致性） | 基于 MLLM 的整体质量分 |
+| **IC** | Instruction Compliance（指令遵循） | 输出是否真正执行了指令要求的空间操作？ |
+| **SA** | Spatial Accuracy（空间精度） | 3D 位移、旋转或缩放是否贴近 ground-truth 几何？ |
+| **AC** | Appearance Consistency（外观一致性） | 编辑后物体身份、类别与外观是否保持？ |
+| **EL** | Edit Locality（编辑局部性） | 目标区域之外的场景是否保持不变？ |
 
 ---
 

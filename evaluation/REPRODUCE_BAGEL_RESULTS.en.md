@@ -306,7 +306,7 @@ In other words, **this repo is closer to "evaluation repo + an incomplete BAGEL 
 
 ## 9. AC scoring (optional)
 
-AC (Acceptance Consistency) uses an MLLM (e.g., Qwen3-VL) to rate source vs. edited images. Full pipeline is three steps:
+AC (Appearance Consistency) uses an MLLM (e.g., Qwen3-VL) to rate source vs. edited images. Full pipeline is three steps:
 
 ### 9.1 Build an LMDB dataset
 

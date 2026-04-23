@@ -137,7 +137,7 @@ This section outlines how to evaluate edited images across four metrics:
 - IC (Instruction Compliance)
 - SA (Spatial Accuracy)
 - EL (Edit Locality)
-- AC (MLLM-based Acceptance Consistency)
+- AC (MLLM-based Appearance Consistency)
 
 Follow the steps below to structure outputs, run metric scripts, and aggregate results.
 
