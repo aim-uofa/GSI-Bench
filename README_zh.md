@@ -8,7 +8,7 @@ Language: 中文 | English in [`README.md`](README.md)
 
 > **Exploring Spatial Intelligence from a Generative Perspective**
 > _CVPR 2026_
-> [[论文]](paper/main.pdf)
+> [[论文]](paper/main.pdf) [[项目主页]](https://aim-uofa.github.io/GSI-Bench/)
 
 GSI-Bench 用于评估生成式模型在室内场景中理解与操纵 3D 空间关系的能力。
 
