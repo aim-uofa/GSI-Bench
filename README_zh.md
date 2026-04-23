@@ -65,7 +65,7 @@ pip install -e ./src/groundingdino --no-build-isolation
 
 | 权重 | 大小 | 来源 |
 |------|------|------|
-| `other_exp_ckpt.pth`（DetAny3D） | ~500MB | 随本项目发布 |
+| `other_exp_ckpt.pth`（DetAny3D） | ~500MB | [OpenDriveLab/DetAny3D](https://github.com/OpenDriveLab/DetAny3D) |
 | `sam_vit_h_4b8939.pth`（SAM ViT-H） | ~2.4GB | [Meta AI](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) |
 | `dinov2_vitl14_pretrain.pth`（DINOv2） | ~1.1GB | [Meta AI](https://dl.fbaipublicfiles.com/dinov2/dinov2_vitl14/dinov2_vitl14_pretrain.pth) |
 | `groundingdino_swinb_cogcoor.pth`（可选） | ~690MB | [IDEA-Research](https://github.com/IDEA-Research/GroundingDINO) |
