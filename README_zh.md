@@ -249,10 +249,14 @@ python -m pytest tests/ -v    # 应当 43 条全部通过
 ## 引用
 
 ```bibtex
-@inproceedings{gsibench2026,
-  title={Exploring Spatial Intelligence from a Generative Perspective},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2026}
+@misc{zhu2026exploringspatialintelligencegenerative,
+      title={Exploring Spatial Intelligence from a Generative Perspective},
+      author={Muzhi Zhu and Shunyao Jiang and Huanyi Zheng and Zekai Luo and Hao Zhong and Anzhou Li and Kaijun Wang and Jintao Rong and Yang Liu and Hao Chen and Tao Lin and Chunhua Shen},
+      year={2026},
+      eprint={2604.20570},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.20570},
 }
 ```
 
