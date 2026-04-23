@@ -249,14 +249,11 @@ python -m pytest tests/ -v    # 43 tests should pass
 ## Citation
 
 ```bibtex
-@misc{zhu2026exploringspatialintelligencegenerative,
-      title={Exploring Spatial Intelligence from a Generative Perspective},
-      author={Muzhi Zhu and Shunyao Jiang and Huanyi Zheng and Zekai Luo and Hao Zhong and Anzhou Li and Kaijun Wang and Jintao Rong and Yang Liu and Hao Chen and Tao Lin and Chunhua Shen},
-      year={2026},
-      eprint={2604.20570},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2604.20570},
+@article{zhu2026exploring,
+  title={Exploring Spatial Intelligence from a Generative Perspective},
+  author={Zhu, Muzhi and Jiang, Shunyao and Zheng, Huanyi and Luo, Zekai and Zhong, Hao and Li, Anzhou and Wang, Kaijun and Rong, Jintao and Liu, Yang and Chen, Hao and Lin, Tao and Shen, Chunhua},
+  journal={arXiv preprint arXiv:2604.20570},
+  year={2026}
 }
 ```
 
