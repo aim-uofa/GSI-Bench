@@ -8,7 +8,7 @@ Official implementation of the paper:
 
 > **Exploring Spatial Intelligence from a Generative Perspective**
 > _CVPR 2026_
-> [[Paper]](paper/main.pdf) [[Project Page]](https://aim-uofa.github.io/GSI-Bench/)
+> [[Paper]](paper/main.pdf) [[arXiv]](https://arxiv.org/abs/2604.20570) [[Project Page]](https://aim-uofa.github.io/GSI-Bench/)
 
 GSI-Bench evaluates the ability of generative models to understand and manipulate 3D spatial relationships in indoor scenes.
 
