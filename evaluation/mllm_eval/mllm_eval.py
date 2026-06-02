@@ -294,6 +294,7 @@ def main():
         model = dir.split("_")[-1]
 
         output_path = f"./infer_results/predictions_infer_{first_N}_{model_name}_{dataset}_{model}.json"
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, "w") as f:
             json.dump(all_predictions, f, indent=4)
 

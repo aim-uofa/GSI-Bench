@@ -40,7 +40,7 @@ GPU_MEMORY_UTILIZATION=0.9
 TENSOR_PARALLEL_SIZE=4
 
 LOG_FILE="vllm_server.log"
-JSON_PATH="predictions_infer_1000_${MODEL_NAME}.json"
+INFER_RESULTS_DIR="./infer_results"
 
 echo "Starting vLLM service for model: $MODEL_NAME"
 echo "Model path: $MODEL_PATH"
@@ -92,30 +92,34 @@ else
 fi
 
 # =============== Step 3: Run inference script ===============
-# First check if prediction JSON already exists
-if [ -f "$JSON_PATH" ]; then
-    echo "⚠️ Prediction file already exists: $JSON_PATH"
-    echo "Skipping mllm_eval.py inference and proceeding to evaluation..."
+# Skip if predictions for this model already exist under infer_results/
+EXISTING_PREDICTIONS=$(find "$INFER_RESULTS_DIR" -maxdepth 1 -name "predictions_infer_*_${MODEL_NAME}_*.json" 2>/dev/null | head -1)
+if [ -n "$EXISTING_PREDICTIONS" ]; then
+    echo "⚠️ Prediction file already exists: $EXISTING_PREDICTIONS"
+    echo "Skipping mllm_eval.py inference..."
 else
     echo "Running mllm_eval.py..."
     if [ "$MODE" = "default" ]; then
         python mllm_eval.py --model_name "$MODEL_NAME"
     else
         echo "Wrong mode: $MODE."
+        exit 1
     fi
 fi
 
 # =============== Step 4: Aggregate AC scores ===============
-# The prediction JSON produced above can be fed directly into the
-# top-level aggregator:
-#   python -m eval.aggregate --root-dir <...> --mllm-eval-dir <dir_containing_json>
+# Prediction JSONs are written to infer_results/ and can be fed into:
+#   python -m eval.aggregate --root-dir <...> --mllm-eval-dir infer_results
 # See the root README for details.
-echo "✅ Inference complete. Prediction JSON: $JSON_PATH"
-echo "Use 'python -m eval.aggregate' to incorporate AC scores into the final report."
+echo "✅ Inference complete. Check prediction JSONs in: $INFER_RESULTS_DIR/"
+echo "Use 'python -m eval.aggregate --mllm-eval-dir $INFER_RESULTS_DIR' to incorporate AC scores."
 
 # =============== Step 5: Shut down vLLM service ===============
-echo "Shutting down vLLM service (PID: $SERVER_PID)..."
-kill $SERVER_PID
-
-wait $SERVER_PID 2>/dev/null
+if [ "${SERVER_ALREADY_RUNNING:-false}" = true ]; then
+    echo "vLLM service was already running; leaving it untouched."
+else
+    echo "Shutting down vLLM service (PID: $SERVER_PID)..."
+    kill $SERVER_PID
+    wait $SERVER_PID 2>/dev/null
+fi
 echo "All tasks completed successfully."
