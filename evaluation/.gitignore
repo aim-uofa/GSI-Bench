@@ -36,6 +36,8 @@ GSI-Bench/
 GSI-weight/
 generated_images_*/
 *_eval/
+!mllm_eval/
+!mllm_eval/**
 eval/**/infer_cache.json
 eval/**/_progress.json
 eval/**_eval_results.json
