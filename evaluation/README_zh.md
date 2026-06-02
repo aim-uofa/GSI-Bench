@@ -160,13 +160,11 @@ fine_dataset/   mesatask_dataset/   bathroom_dataset/   robothor_dataset/
 
 2) 生成编辑图像
 
-我们在 `examples/` 下提供了一个 BAGEL 示例：
+使用你自己的模型，或修改 `examples/mydataset.py`。`examples/inference.py` 仅为 BAGEL **示例骨架**，完整推理需 [BAGEL](https://github.com/ByteDance-Seed/BAGEL) 原工程（见 [`REPRODUCE_BAGEL_RESULTS.md`](REPRODUCE_BAGEL_RESULTS.md)）。
 
-```
-python examples/inference.py
-```
+若只需复现论文 BAGEL × fine 分数、不重新出图，请下载 [`bagel_example/`](bagel_example/README.md)（约 265MB，不在 Git 中）。
 
-想接入其他模型或数据格式，可修改 `examples/mydataset.py`。生成图像命名必须遵循 `<img_id>_edit_<query_id>.(png|jpg)`，评估器据此定位对应的 JSON 与原图（详见 `eval/README.md`）。
+生成图像命名须为 `<img_id>_edit_<query_id>.(png|jpg)`，评估器据此定位 JSON 与原图（详见 `eval/README.md`）。
 
 3) 运行 IC/SA/EL 评测
 
@@ -180,14 +178,13 @@ bash eval.sh
 
 4) 运行基于 MLLM 的 AC 打分（可选但推荐）
 
-启动 `mllm_eval/` 下的评测辅助脚本，用一个在线 LLM 服务生成 AC 结果：
-
-```
+```bash
+pip install -r requirements-mllm.txt   # 另按 CUDA 环境安装 vllm
 cd mllm_eval
-bash eval_infer.sh <model_path> default <port>
+bash eval_infer.sh <qwen3_vl_模型路径> default <port>
 ```
 
-这会生成预测 JSON（如 `predictions_infer_1000_<MODEL_NAME>.json`）。可以把这些文件放在同一目录，下一步通过 `--mllm-eval-dir` 传入。
+结果写入 `mllm_eval/infer_results/`（如 `predictions_infer_2000_<model>_<dataset>_<model>.json`），聚合时将该目录传给 `--mllm-eval-dir`。
 
 5) 聚合所有指标（IC/SA/EL/AC）
 

@@ -39,8 +39,9 @@ evaluation/robothor_dataset/
 evaluation/GSI-Bench/
 evaluation/EVAL/
 
-# BAGEL example artifacts (regenerate locally)
-evaluation/bagel_example/
+# BAGEL example artifacts (~265MB) — download separately; see evaluation/bagel_example/README.md
+evaluation/bagel_example/*
+!evaluation/bagel_example/README.md
 
 # IDE / OS
 .DS_Store

@@ -40,6 +40,14 @@ GSI-Bench/
 
 ## 评测
 
+**可复现范围：**
+
+| 目标 | 需要 | 文档 |
+|------|------|------|
+| 对**你自己的**编辑图跑 IC/SA/EL/AC | 评测数据集 + 权重 + `eval/<模型>/` 目录结构 | 本节 |
+| 复现论文 **BAGEL × fine** 分数 | 单独下载 [`bagel_example/`](evaluation/bagel_example/README.md)（约 265MB，不在 Git 中） | [`REPRODUCE_BAGEL_RESULTS.md`](evaluation/REPRODUCE_BAGEL_RESULTS.md) |
+| 重新生成 BAGEL 编辑图 | 外部 [BAGEL](https://github.com/ByteDance-Seed/BAGEL) 工程（本仓未包含完整推理栈） | 同上文档第 8 节 |
+
 ### 1. 环境准备
 
 ```bash
@@ -78,8 +86,10 @@ bash prepare_weights.sh <权重目录路径>
 
 ### 3. 下载评测数据集
 
+从 [项目主页](https://aim-uofa.github.io/GSI-Bench/) 获取四个评测数据集的压缩包，然后：
+
 ```bash
-# 下载 GSI-Bench 的四个评测数据集并放到同一目录
+cd evaluation
 bash prepare_datasets.sh <下载好的数据集目录>
 # 会创建软链接：fine_dataset/  mesatask_dataset/  bathroom_dataset/  robothor_dataset/
 ```
@@ -94,7 +104,7 @@ eval/<model_name>/generated_images_bathroom/<img_id>_edit_<query_id>.png
 eval/<model_name>/generated_images_robothor/<img_id>_edit_<query_id>.png
 ```
 
-我们提供了一个 BAGEL 示例：`python examples/inference.py`（详见 [`evaluation/REPRODUCE_BAGEL_RESULTS.md`](evaluation/REPRODUCE_BAGEL_RESULTS.md)）。
+`examples/inference.py` 仅为 BAGEL 输出格式的**示例骨架**；完整出图需 [BAGEL](https://github.com/ByteDance-Seed/BAGEL) 原仓库。若只需复现论文 BAGEL 分数、不重新生成图，请下载 [`bagel_example/`](evaluation/bagel_example/README.md) 并阅读 [`evaluation/REPRODUCE_BAGEL_RESULTS.md`](evaluation/REPRODUCE_BAGEL_RESULTS.md)。
 
 ### 5. 运行评测
 
@@ -105,16 +115,18 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 # IC / SA / EL 评测（遍历所有模型 × 所有数据集）
 bash eval.sh
 
-# （可选）基于 MLLM 的 AC 打分——需要自行部署 LLM 服务
+# （可选）基于 MLLM 的 AC 打分——需 vLLM + Qwen3-VL（见 evaluation/requirements-mllm.txt）
 cd mllm_eval
-bash eval_infer.sh <model_path> default <port>
+pip install -r ../requirements-mllm.txt   # 另按 CUDA 环境安装 vllm
+bash eval_infer.sh <qwen3_vl_模型路径> default <port>
+# 结果写入 mllm_eval/infer_results/
 cd ..
 
 # 聚合所有指标生成最终报告
 python -m eval.aggregate \
   --root-dir ./eval \
   --output-dir ./eval_results \
-  --mllm-eval-dir <含 MLLM AC 结果 json 的目录>
+  --mllm-eval-dir ./mllm_eval/infer_results
 
 cd ..   # 回到仓库根目录
 ```

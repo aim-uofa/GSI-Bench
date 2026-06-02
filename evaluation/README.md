@@ -162,13 +162,11 @@ fine_dataset/   mesatask_dataset/   bathroom_dataset/   robothor_dataset/
 
 2) Generate edited images
 
-We provide a BAGEL-based example under `examples/`:
+Use your own model, or adapt `examples/mydataset.py`. `examples/inference.py` is a BAGEL **skeleton** only — full inference needs the [BAGEL](https://github.com/ByteDance-Seed/BAGEL) project (see [`REPRODUCE_BAGEL_RESULTS.en.md`](REPRODUCE_BAGEL_RESULTS.en.md)).
 
-```
-python examples/inference.py
-```
+To reproduce published BAGEL × fine scores without regenerating images, download [`bagel_example/`](bagel_example/README.md) (~265MB, not in Git).
 
-Adapt `examples/mydataset.py` if you want to integrate other models or data formats. Save all generated images following the naming convention `<img_id>_edit_<query_id>.(png|jpg)` so the evaluator can locate the paired JSON and originals (see `eval/README.md`).
+Save all generated images as `<img_id>_edit_<query_id>.(png|jpg)` so the evaluator can locate paired JSON and originals (see `eval/README.md`).
 
 3) Run IC/SA/EL evaluation
 
@@ -182,14 +180,13 @@ Outputs will be written to `eval/<model_name>/*_eval/` with per-metric JSON file
 
 4) Run MLLM-based AC scoring (optional but recommended)
 
-Launch the evaluation helper in `mllm_eval/` to produce AC results with a serving LLM:
-
-```
+```bash
+pip install -r requirements-mllm.txt   # plus vllm for your CUDA build
 cd mllm_eval
-bash eval_infer.sh <model_path> default <port>
+bash eval_infer.sh <qwen3_vl_model_path> default <port>
 ```
 
-This generates a predictions JSON (e.g., `predictions_infer_1000_<MODEL_NAME>.json`). You can keep these files in one folder and pass it to the next step via `--mllm-eval-dir`.
+Outputs land in `mllm_eval/infer_results/` (e.g. `predictions_infer_2000_<model>_<dataset>_<model>.json`). Pass that directory to `--mllm-eval-dir`.
 
 5) Aggregate all metrics (IC/SA/EL/AC)
 

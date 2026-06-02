@@ -2,17 +2,32 @@
 
 Language: 中文 | English in [`REPRODUCE_BAGEL_RESULTS.en.md`](REPRODUCE_BAGEL_RESULTS.en.md)
 
-本文档说明如何使用仓库中提供的 `bagel_example/` 数据复现 BAGEL 模型在 fine 数据集上的完整评测结果。
+本文档说明如何使用 **单独下载的 `bagel_example/` 数据包**（不在 Git 仓库内）复现 BAGEL 模型在 fine 数据集上的完整评测结果。
 
 > **结论：**
-> - **”从已有生成图开始复现最终评测结果”已经可以完整跑通。**
-> - **”从原始模型开始重新生成 BAGEL 编辑图”需要额外的 BAGEL 推理代码**，因为 `examples/inference.py` 依赖的 `data/`、`modeling/`、`inferencer.py` 等组件当前仓库内并不完整。
+> - **分数复现**（从已有编辑图跑 IC / SA / EL / AC 并聚合）：本仓库 + 下载 `bagel_example/` 即可。
+> - **从零生成 BAGEL 编辑图**：本仓库不包含完整推理栈。`examples/inference.py` 仅为示例骨架，需配合 [BAGEL](https://github.com/ByteDance-Seed/BAGEL) 原工程（`data/`、`modeling/`、`inferencer.py` 等）。
+
+---
+
+## 0. 下载 `bagel_example/`（约 265MB）
+
+数据包在 Git 外单独发布，见 [`bagel_example/README.md`](bagel_example/README.md)。
+
+```bash
+cd evaluation
+pip install -U huggingface_hub
+huggingface-cli download aim-uofa/GSI-Bench-bagel-example \
+  --local-dir bagel_example --repo-type dataset
+```
+
+上传 Hugging Face 后若数据集名称有变，请同步更新 `bagel_example/README.md` 中的链接。
 
 ---
 
 ## 1. `bagel_example/` 目录说明
 
-我们在仓库中提供了完整的 BAGEL × fine 数据集评测中间结果，用户可以从任意节点开始复现。
+下载完成后，应包含完整的 BAGEL × fine 评测中间结果，可从任意节点开始复现。
 
 ```
 evaluation/bagel_example/
@@ -48,7 +63,7 @@ Average:  28.484
 
 ## 2. 复现边界
 
-### 2.1 可直接复现的部分（仅需本仓库 + `bagel_example/`）
+### 2.1 可直接复现的部分（本仓库 + 已下载的 `bagel_example/`）
 
 1. 配环境（第 3 节）
 2. 准备数据集与权重（第 4-5 节，或直接用 `bagel_example/fine_dataset/`）
@@ -329,7 +344,7 @@ python build_lmdb.py \
   --model-name BAGEL
 ```
 
-依赖：`pip install lmdb opencv-python`
+依赖：`pip install -r ../requirements-mllm.txt`（另按 CUDA 环境安装 `vllm`）
 
 ### 9.2 启动 vLLM 并推理
 
@@ -337,7 +352,7 @@ python build_lmdb.py \
 bash eval_infer.sh <path_to_qwen3_vl_model> default 8000
 ```
 
-这会启动 vLLM 服务，运行 `mllm_eval.py` 对 LMDB 中的图片对逐一打分，输出 `predictions_*.json`。
+这会启动 vLLM 服务，运行 `mllm_eval.py` 对 LMDB 中的图片对逐一打分，输出 `mllm_eval/infer_results/predictions_*.json`。
 
 需要：
 - vLLM（`pip install vllm`）
@@ -346,7 +361,7 @@ bash eval_infer.sh <path_to_qwen3_vl_model> default 8000
 
 ### 9.3 跳过 AC 推理
 
-如果不想自行搭建 vLLM，可以直接使用 `bagel_example/` 中已有的 AC JSON：
+如果不想自行搭建 vLLM，可直接使用**已下载** `bagel_example/` 中的 AC JSON：
 
 ```
 bagel_example/predictions_infer_2000_Qwen3-VL-235B-A22B-Instruct_fine_BAGEL.json
@@ -401,13 +416,13 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 
 ### 11.4 想直接用 `mllm_eval/eval_infer.sh` 生成 AC
 
-该脚本可以正常启动 vLLM 并运行推理，但需要你提前准备好 `./EVAL_lmdb_dataset` 数据目录。如果你只需要最终分数，直接用已有的 AC JSON 配合 `python -m eval.aggregate` 即可。
+该脚本可以正常启动 vLLM 并运行推理，但需要你提前准备好 `./EVAL_lmdb_dataset` 数据目录。若只需最终分数，使用下载包中的 AC JSON 配合 `python -m eval.aggregate` 即可。
 
 ---
 
 ## 12. 总结
 
-`bagel_example/` 提供了完整的中间结果，可以从任意节点复现 BAGEL × fine 的评测分数：
+下载 `bagel_example/` 后，可从任意节点复现 BAGEL × fine 的评测分数：
 
 - **无需 GPU**：直接用已有的 `fine_eval/` + `predictions_*.json` 跑聚合（路径 B）
 - **有 GPU**：用 `fine_dataset/` + `generated_images_fine/` 重新跑 IC/SA/EL（路径 A）

@@ -2,17 +2,32 @@
 
 Language: English | 中文见 [`REPRODUCE_BAGEL_RESULTS.md`](REPRODUCE_BAGEL_RESULTS.md)
 
-This document explains how to reproduce the full BAGEL evaluation results on the `fine` dataset using the `bagel_example/` artifacts shipped with this repo.
+This document explains how to reproduce the full BAGEL evaluation results on the `fine` dataset using the **`bagel_example/` artifacts** (downloaded separately — not in Git).
 
 > **Bottom line:**
-> - **"Reproducing the final evaluation scores from existing generated images" is fully supported.**
-> - **"Regenerating BAGEL edited images from the original model" requires extra BAGEL inference code**, because `examples/inference.py` depends on `data/`, `modeling/`, `inferencer.py`, etc., which are not shipped in full in this repo.
+> - **Score reproduction** (IC / SA / EL / AC aggregate from existing edited images): supported with this repo + downloaded `bagel_example/`.
+> - **BAGEL image generation from scratch**: not included here. `examples/inference.py` is a skeleton that needs the [BAGEL](https://github.com/ByteDance-Seed/BAGEL) project (`data/`, `modeling/`, `inferencer.py`, etc.).
+
+---
+
+## 0. Download `bagel_example/` (~265MB)
+
+The bundle is published outside Git. See [`bagel_example/README.md`](bagel_example/README.md).
+
+```bash
+cd evaluation
+pip install -U huggingface_hub
+huggingface-cli download aim-uofa/GSI-Bench-bagel-example \
+  --local-dir bagel_example --repo-type dataset
+```
+
+Update the dataset URL in `bagel_example/README.md` if the Hugging Face repo name differs after upload.
 
 ---
 
 ## 1. `bagel_example/` layout
 
-We provide the complete BAGEL × fine-dataset intermediate artifacts so you can resume reproduction from any point.
+After download, you should have the complete BAGEL × fine-dataset intermediate artifacts and can resume reproduction from any point.
 
 ```
 evaluation/bagel_example/
@@ -48,7 +63,7 @@ Average:  28.484
 
 ## 2. Reproduction scope
 
-### 2.1 What works out of the box (this repo + `bagel_example/`)
+### 2.1 What works out of the box (this repo + downloaded `bagel_example/`)
 
 1. Set up the environment (Section 3)
 2. Prepare datasets and weights (Sections 4–5, or use `bagel_example/fine_dataset/` directly)
@@ -323,7 +338,7 @@ python build_lmdb.py \
   --model-name BAGEL
 ```
 
-Deps: `pip install lmdb opencv-python`
+Deps: `pip install -r ../requirements-mllm.txt` (and install `vllm` for your CUDA stack)
 
 ### 9.2 Serve vLLM and run inference
 
@@ -331,7 +346,7 @@ Deps: `pip install lmdb opencv-python`
 bash eval_infer.sh <path_to_qwen3_vl_model> default 8000
 ```
 
-This starts a vLLM service and runs `mllm_eval.py` to score each image pair in the LMDB, producing `predictions_*.json`.
+This starts a vLLM service and runs `mllm_eval.py` to score each image pair in the LMDB, producing `mllm_eval/infer_results/predictions_*.json`.
 
 Requires:
 - vLLM (`pip install vllm`)
@@ -340,7 +355,7 @@ Requires:
 
 ### 9.3 Skip AC inference
 
-If you do not want to stand up vLLM, use the AC JSON already shipped in `bagel_example/`:
+If you do not want to stand up vLLM, use the AC JSON included in the downloaded `bagel_example/`:
 
 ```
 bagel_example/predictions_infer_2000_Qwen3-VL-235B-A22B-Instruct_fine_BAGEL.json
@@ -395,13 +410,13 @@ That is not your environment — this repo intentionally does not ship the full 
 
 ### 11.4 Using `mllm_eval/eval_infer.sh` directly
 
-The script can start vLLM and run inference, but you must prepare `./EVAL_lmdb_dataset` yourself first. If you only want the final scores, just use the shipped AC JSON together with `python -m eval.aggregate`.
+The script can start vLLM and run inference, but you must prepare `./EVAL_lmdb_dataset` yourself first. If you only want the final scores, use the AC JSON from the downloaded `bagel_example/` with `python -m eval.aggregate`.
 
 ---
 
 ## 12. Summary
 
-`bagel_example/` provides the full chain of intermediate artifacts, so BAGEL × fine scores can be reproduced from any starting point:
+With the downloaded `bagel_example/` bundle, BAGEL × fine scores can be reproduced from any starting point:
 
 - **No GPU**: aggregate existing `fine_eval/` + `predictions_*.json` (Path B)
 - **With GPU**: re-run IC/SA/EL on `fine_dataset/` + `generated_images_fine/` (Path A)

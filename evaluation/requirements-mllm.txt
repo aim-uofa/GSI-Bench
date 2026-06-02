@@ -1,0 +1,7 @@
+# Optional: MLLM-based AC scoring (mllm_eval/)
+# Install on top of evaluation/requirements.txt or requirements-cu117.txt
+lmdb
+requests
+qwen-vl-utils
+# vLLM: install separately to match your CUDA / PyTorch build, e.g.:
+# pip install vllm

@@ -92,6 +92,9 @@ class TestRepoStructure:
         "evaluation/eval/README.md",
         "evaluation/mllm_eval/mllm_eval.py",
         "evaluation/mllm_eval/eval_infer.sh",
+        "evaluation/mllm_eval/build_lmdb.py",
+        "evaluation/bagel_example/README.md",
+        "evaluation/requirements-mllm.txt",
         "evaluation/examples/inference.py",
         "evaluation/prepare_datasets.sh",
     ]

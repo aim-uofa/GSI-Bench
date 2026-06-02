@@ -40,6 +40,14 @@ GSI-Bench/
 
 ## Evaluation
 
+**What you can reproduce:**
+
+| Goal | Needs | Doc |
+|------|--------|-----|
+| Run IC/SA/EL/AC on **your** edited images | Eval datasets + weights + `eval/<model>/` layout | This section |
+| Reproduce **paper BAGEL × fine** scores | Download [`bagel_example/`](evaluation/bagel_example/README.md) (~265MB, not in Git) | [`REPRODUCE_BAGEL_RESULTS.en.md`](evaluation/REPRODUCE_BAGEL_RESULTS.en.md) |
+| Regenerate BAGEL images | External [BAGEL](https://github.com/ByteDance-Seed/BAGEL) repo (not full stack here) | Same doc, Section 8 |
+
 ### 1. Environment Setup
 
 ```bash
@@ -78,8 +86,10 @@ bash prepare_weights.sh <path_to_weight_directory>
 
 ### 3. Download Evaluation Datasets
 
+Obtain the four GSI-Bench evaluation dataset archives (see the [project page](https://aim-uofa.github.io/GSI-Bench/) for download links), then:
+
 ```bash
-# Download the four GSI-Bench evaluation datasets and place in one directory
+cd evaluation
 bash prepare_datasets.sh <path_to_downloaded_datasets>
 # Creates symlinks: fine_dataset/  mesatask_dataset/  bathroom_dataset/  robothor_dataset/
 ```
@@ -94,7 +104,7 @@ eval/<model_name>/generated_images_bathroom/<img_id>_edit_<query_id>.png
 eval/<model_name>/generated_images_robothor/<img_id>_edit_<query_id>.png
 ```
 
-We provide a BAGEL-based example: `python examples/inference.py` (see [`evaluation/REPRODUCE_BAGEL_RESULTS.md`](evaluation/REPRODUCE_BAGEL_RESULTS.md)).
+`examples/inference.py` is a **reference skeleton** for BAGEL-style outputs; full generation requires the [BAGEL](https://github.com/ByteDance-Seed/BAGEL) codebase. To reproduce our published BAGEL numbers without regenerating images, download [`bagel_example/`](evaluation/bagel_example/README.md) and follow [`evaluation/REPRODUCE_BAGEL_RESULTS.en.md`](evaluation/REPRODUCE_BAGEL_RESULTS.en.md).
 
 ### 5. Run Evaluation
 
@@ -105,16 +115,18 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 # IC / SA / EL evaluation (iterates all models × all datasets)
 bash eval.sh
 
-# (Optional) MLLM-based AC scoring — requires serving an LLM
+# (Optional) MLLM-based AC scoring — requires vLLM + Qwen3-VL (see evaluation/requirements-mllm.txt)
 cd mllm_eval
-bash eval_infer.sh <model_path> default <port>
+pip install -r ../requirements-mllm.txt   # plus vllm for your CUDA build
+bash eval_infer.sh <qwen3_vl_model_path> default <port>
+# Writes predictions to mllm_eval/infer_results/
 cd ..
 
 # Aggregate all metrics into a final report
 python -m eval.aggregate \
   --root-dir ./eval \
   --output-dir ./eval_results \
-  --mllm-eval-dir <dir_with_mllm_ac_jsons>
+  --mllm-eval-dir ./mllm_eval/infer_results
 
 cd ..   # back to repo root
 ```
